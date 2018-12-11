@@ -3,7 +3,7 @@ let sketchPad_div = document.querySelector('.sketch-pad');
 let sketchScreen_div = document.querySelector('.sketch-screen');
 
 // function to create the grid
-function createGrid(x = 32) {
+function createGrid(x = 16) {
   let size = sketchScreen_div.offsetWidth / x;
   for (var i = 0; i < x * x; i++) {
     box_div = document.createElement('div');
@@ -26,5 +26,33 @@ function sketch(boxes) {
 });
 }
 
+let grid_btn = document.querySelector('#grid-btn');
+grid_btn.addEventListener('click', (e) => {
+  resetGrid();
+  createNewGrid();
+});
+
+let reset_btn = document.querySelector('#reset-btn');
+reset_btn.addEventListener('click', (e) => {
+  resetScreen();
+});
+
+function resetGrid() {
+  let boxesToRemove = document.querySelectorAll('.box');
+  boxesToRemove.forEach((div) => {
+    div.remove();
+  });
+}
+
+function resetScreen() {
+  let sketchedBoxes = document.querySelectorAll('.black-box');
+  sketchedBoxes.forEach((div) => {
+    div.classList.remove('black-box');
+  })
+}
+
+function createNewGrid() {
+  createGrid(prompt("Choose your grid size from 0 to 100"));
+}
 
 createGrid();
